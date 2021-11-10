@@ -18,3 +18,6 @@ InfluxDB: Is a open-source time series database developed by InfluxData
 Telegraf: Is the open-source server agent to help you collect metrics from your stacks, sensors and systems.
 
 Grafana: Is a open-source graphing and analisys software. Allows you to query, view, alert, and explore your metrics from Time Series Database Storage(TSDB)
+
+# Run 
+-sh start.sh
