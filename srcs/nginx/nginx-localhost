@@ -1,0 +1,48 @@
+user                            www;
+worker_processes                auto;
+
+events
+{
+ worker_connections          1024;
+ }
+
+
+http
+{
+server
+{
+	listen                  80;
+	listen                  [::]:80;
+    return 301              https://$host$request_uri;
+}
+
+server
+{
+	  listen                443 ssl;
+      listen                [::]:443 ssl;
+	  root                  /www;
+	  ssl_certificate       /etc/ssl/certs/nginx_selfsigned.crt;
+      ssl_certificate_key   /etc/ssl/private/nginx_selfsigned.key;
+	  index                 index.html;
+
+	location /
+	{
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files           $uri $uri/ =404;
+	}
+
+	location = /wordpress
+	{
+	return 307              http://192.168.99.100:5050;
+	}
+
+	 location  /phpmyadmin/
+	 {
+     proxy_pass             http://192.168.99.100:5000/;
+     proxy_set_header       X-Forwarded-Proto https;
+     }
+}
+}
+
+

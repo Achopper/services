@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegraf-dep
+  labels:
+    app: telegraf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: telegraf
+  template:
+    metadata:
+      labels:
+        app: telegraf
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: telegraf
+          image: telegraf_im
+          envFrom:
+          - secretRef:
+              name: tg-sec
+          imagePullPolicy: Never
+          volumeMounts:
+            - mountPath: /var/run/docker.sock
+              name: dockersock
+      volumes:
+        - name: dockersock
+          hostPath:
+            path: /var/run/docker.sock
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tg-sec
+type: Opaque
+stringData:
+  INFLUXDB_DB: telegraf
+  INFLUXDB_URL: http://influxdb-svc:8086
+  INFLUXDB_USER: achopper
+  INFLUXDB_PASSWORD: "123"
