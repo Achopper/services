@@ -5,7 +5,7 @@ MetalLB: Is a Load Balancer that manages external access to its services. It is 
 
 Nginx: Is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server.
 
-vsFTPd: [very secure FTP daemon] Is an FTP server for Unix-like system, including Linux.
+FTP:  Is an FTP server for Unix-like system, including Linux.
 
 MariaDB: Is a database management system derived from MySQL with a GPL (General Public License).
 
